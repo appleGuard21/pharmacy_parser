@@ -8,6 +8,8 @@ import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.util.Cookie;
 import org.springframework.stereotype.Component;
 
+import java.util.Locale;
+
 @Component
 public class ParsersTools {
     public WebClient getWebClient() {
@@ -26,14 +28,13 @@ public class ParsersTools {
     }
     public String editedName( DomElement domName){
         String name = domName.getTextContent();
-//        name = name.stripTrailing();
-//        name = name.stripLeading();
         name = name.trim();
         return name;
     }
     public String editedOriginalName( DomElement domOriginalName){
         String originalName = domOriginalName.getTextContent();
         originalName = originalName.trim();
+        originalName = originalName.toLowerCase(Locale.ROOT);
         return originalName;
     }
     public double editedPrice(DomElement domPrice){
