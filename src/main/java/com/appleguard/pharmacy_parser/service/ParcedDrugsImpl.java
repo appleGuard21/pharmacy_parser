@@ -3,6 +3,7 @@ package com.appleguard.pharmacy_parser.service;
 import com.appleguard.pharmacy_parser.entity.Drug;
 import com.appleguard.pharmacy_parser.parsers.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,7 @@ public class ParcedDrugsImpl implements ParcedDrugs {
     @Autowired
     GorzdravParser gorzdravParser;
     @Override
+    @Cacheable(key = "#inputDrug", value = "Drug")
         public List<Drug> getParsedDrugs(String inputDrug, String city) {
             List<Drug> allDrugs = new ArrayList<>();
             List<List<Drug>> allLists = new ArrayList<>();
