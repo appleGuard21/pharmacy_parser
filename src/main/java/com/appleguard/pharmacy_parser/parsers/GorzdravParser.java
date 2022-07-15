@@ -30,18 +30,18 @@ public class GorzdravParser implements Parser{
                 HtmlPage page = webClient.getPage("https://gorzdrav.org/spb/");
             } else return drugsList;
             HtmlPage page = webClient.getPage("https://gorzdrav.org/search/?text="+inputDrug);
-            HtmlDivision div = (HtmlDivision) page.getFirstByXPath("/html/body/main/div[8]/div/div[2]/div[2]/div[2]/div/div[2]/div[2]/div");
+            HtmlDivision div = (HtmlDivision) page.getFirstByXPath("/html/body/main/div[9]/div/div[2]/div[2]/div[2]/div/div[2]/div[2]/div");
             if (div!=null) {
                 for (int i = 1; i <= div.getChildElementCount(); i++) {
                     try {
-                    DomElement item = div.getFirstByXPath("/html/body/main/div[8]/div/div[2]/div[2]/div[2]/div/div[2]/div[2]/div/div[" + i + "]");
+                    DomElement item = div.getFirstByXPath("/html/body/main/div[9]/div/div[2]/div[2]/div[2]/div/div[2]/div[2]/div/div[" + i + "]");
                     DomElement itemName = item.getFirstElementChild().getNextElementSibling()
                             .getFirstElementChild().getNextElementSibling();
                     DomElement itemPrice = item.getFirstElementChild().getNextElementSibling().getNextElementSibling()
                             .getNextElementSibling().getNextElementSibling().getFirstElementChild()
                             .getFirstElementChild().getFirstElementChild();
                     DomElement itemOriginalName = div
-                            .getFirstByXPath("/html/body/main/div[8]/div/div[2]/div[2]/div[2]/div/div[2]/div[2]/div/div[" +
+                            .getFirstByXPath("/html/body/main/div[9]/div/div[2]/div[2]/div[2]/div/div[2]/div[2]/div/div[" +
                                         i + "]/div[2]/div[3]");
                     if (itemName != null && itemPrice != null) {
                         String name = tools.editedName(itemName);

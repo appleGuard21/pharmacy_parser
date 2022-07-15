@@ -35,20 +35,20 @@ public class Apteka366Parser implements Parser {
             } else return drugsList;
             HtmlPage page = webClient.getPage("https://366.ru/search/?text="+inputDrug);
             HtmlDivision div = (HtmlDivision) page.getFirstByXPath
-                    ("/html/body/main/div[7]/div/div[2]/div[2]/div/div[2]/div[3]/div");
+                    ("/html/body/main/div[9]/div/div[2]/div[2]/div/div[2]/div[3]/div");
             if (div!=null) {
                 for (int i = 1; i <= div.getChildElementCount(); i++) {
                     try {
                     DomElement item = div.getFirstByXPath
-                            ("/html/body/main/div[7]/div/div[2]/div[2]/div/div[2]/div[3]/div/div[" + i + "]");
+                            ("/html/body/main/div[9]/div/div[2]/div[2]/div/div[2]/div[3]/div/div[" + i + "]");
                     DomElement itemName = div
-                            .getFirstByXPath("/html/body/main/div[7]/div/div[2]/div[2]/div/div[2]/div[3]/div/div[" +
+                            .getFirstByXPath("/html/body/main/div[9]/div/div[2]/div[2]/div/div[2]/div[3]/div/div[" +
                                     i + "]/div[2]/div[1]/a");
                     DomElement itemPrice = item.getFirstElementChild()
                             .getNextElementSibling().getNextElementSibling()
                             .getFirstElementChild().getNextElementSibling().getFirstElementChild();
                         DomElement itemOriginalName = div
-                            .getFirstByXPath("/html/body/main/div[7]/div/div[2]/div[2]/div/div[2]/div[3]/div/div[" +
+                            .getFirstByXPath("/html/body/main/div[9]/div/div[2]/div[2]/div/div[2]/div[3]/div/div[" +
                                     i + "]/div[2]/div[1]/div/div[1]");
                     if (itemName != null && itemPrice != null) {
                         String name = tools.editedName(itemName);
