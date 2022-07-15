@@ -20,17 +20,17 @@ public class MyRestController {
 
     @GetMapping("/{city}/{inputDrug}")
     public List<Drug> drugList(@PathVariable String inputDrug, @PathVariable String city) throws IOException {
-        long time = System.currentTimeMillis();
         parcedDrugsList = parcedDrugs.getParsedDrugs(inputDrug, city);
-        System.out.println("time to parse: " + (System.currentTimeMillis() - time));
         return parcedDrugsList;
     }
     @GetMapping("/analogue/{city}/{number}")
     public List<Drug> analogueDrugList(@PathVariable int number, @PathVariable String city) throws IOException {
-        if(!parcedDrugsList.isEmpty()){
+        if(!parcedDrugsList.isEmpty() && number>-1 && number< parcedDrugsList.size()){
             Drug drug = parcedDrugsList.get(number);
             String inputDrug = drug.getOriginalName();
-            return parcedDrugs.getParsedDrugs(inputDrug, city);
+            if(inputDrug!=null){
+                return parcedDrugs.getParsedDrugs(inputDrug, city);
+            }else return null;
         }else return null;
 
     }
