@@ -28,15 +28,20 @@ public class StolichkiParser implements Parser {
             WebClient webClient = parsersTools.getWebClient();
             inputDrug = translator.translate(inputDrug);
         try {
-
             HtmlPage page = webClient.getPage("https://stolichki.ru");
-            if(city.equals("Москва")) {
-                Cookie myCookie = new Cookie(".stolichki.ru","cityId", City.MOSCOW_STOLICHKI.getCity());
-                parsersTools.setCityByCookie(webClient,"cityId",myCookie);
-            } else if (city.equals("Санкт-Петербург")){
-                Cookie myCookie = new Cookie(".stolichki.ru","cityId",City.PITER_STOLICHKI.getCity());
-                parsersTools.setCityByCookie(webClient,"cityId",myCookie);
-            } else return drugsList;
+            switch (city) {
+                case "Москва" -> {
+                    Cookie myCookie = new Cookie(".stolichki.ru","cityId", City.MOSCOW_STOLICHKI.getCity());
+                    parsersTools.setCityByCookie(webClient,"cityId",myCookie);
+                }
+                case "Санкт-Петербург" -> {
+                    Cookie myCookie = new Cookie(".stolichki.ru","cityId",City.PITER_STOLICHKI.getCity());
+                    parsersTools.setCityByCookie(webClient,"cityId",myCookie);
+                }
+                default -> {
+                    return drugsList;
+                }
+            }
             page = webClient.getPage("https://stolichki.ru/search?name="+inputDrug);
             HtmlDivision div = (HtmlDivision) page.getFirstByXPath("//*[@id=\"catalog-list\"]");
             if (div!=null) {
