@@ -29,13 +29,19 @@ public class StoletovParser implements Parser{
         inputDrug = translator.translate(inputDrug);
         try {
             HtmlPage page = webClient.getPage("https://stoletov.ru/");
-            if(city.equals("Москва")) {
-                Cookie myCookie = new Cookie("stoletov.ru","SELECTED_CITY", City.STOLETOV_MOSCOW.getCity());
-                tools.setCityByCookie(webClient,"cityId",myCookie);
-            } else if (city.equals("Санкт-Петербург")){
-                Cookie myCookie = new Cookie("stoletov.ru","SELECTED_CITY",City.STOLETOV_PITER.getCity());
-                tools.setCityByCookie(webClient,"SELECTED_CITY",myCookie);
-            } else return drugsList;
+            switch (city) {
+                case "Москва" -> {
+                    Cookie myCookie = new Cookie("stoletov.ru","SELECTED_CITY", City.MOSCOW_STOLETOV.getCity());
+                    tools.setCityByCookie(webClient,"cityId",myCookie);
+                }
+                case "Санкт-Петербург" -> {
+                    Cookie myCookie = new Cookie("stoletov.ru","SELECTED_CITY",City.PITER_STOLETOV.getCity());
+                    tools.setCityByCookie(webClient,"SELECTED_CITY",myCookie);
+                }
+                default -> {
+                    return drugsList;
+                }
+            }
             page = webClient.getPage("https://stoletov.ru/catalog/?q="+inputDrug);
             HtmlDivision div = (HtmlDivision) page.getFirstByXPath("/html/body/div[5]/main/div/div[3]/div/div[2]/div[2]/div[1]");
             if (div!=null) {

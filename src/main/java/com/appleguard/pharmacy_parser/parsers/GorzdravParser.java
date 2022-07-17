@@ -24,12 +24,15 @@ public class GorzdravParser implements Parser{
         WebClient webClient = tools.getWebClient();
         inputDrug = translator.translate(inputDrug);
         try {
-            if(city.equals("Москва")) {
-                HtmlPage page = webClient.getPage("https://gorzdrav.org/balashiha/");
-            } else if (city.equals("Санкт-Петербург")){
-                HtmlPage page = webClient.getPage("https://gorzdrav.org/spb/");
-            } else return drugsList;
-            HtmlPage page = webClient.getPage("https://gorzdrav.org/search/?text="+inputDrug);
+            HtmlPage page;
+            switch (city) {
+                case "Москва" -> page = webClient.getPage("https://gorzdrav.org/balashiha/");
+                case "Санкт-Петербург" -> page = webClient.getPage("https://gorzdrav.org/spb/");
+                default -> {
+                    return drugsList;
+                }
+            }
+            page = webClient.getPage("https://gorzdrav.org/search/?text="+inputDrug);
             HtmlDivision div = (HtmlDivision) page.getFirstByXPath("/html/body/main/div[9]/div/div[2]/div[2]/div[2]/div/div[2]/div[2]/div");
             if (div!=null) {
                 for (int i = 1; i <= div.getChildElementCount(); i++) {
