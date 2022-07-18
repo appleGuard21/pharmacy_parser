@@ -8,4 +8,5 @@ In this application i used Spring Boot and also:
 - Htmlunit for parsing;
 - Multithreads for parallel parsing;
 - Redis for caching;
-- It takes requests and make responses using REST API.
+- It takes requests and make responses using REST API;
+- Parsers are tested using assertj; 
