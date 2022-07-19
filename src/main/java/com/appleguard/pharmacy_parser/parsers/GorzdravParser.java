@@ -1,8 +1,10 @@
 package com.appleguard.pharmacy_parser.parsers;
 
+import com.appleguard.pharmacy_parser.additionalTools.City;
 import com.appleguard.pharmacy_parser.additionalTools.ParsersTools;
 import com.appleguard.pharmacy_parser.additionalTools.Translator;
 import com.appleguard.pharmacy_parser.entity.Drug;
+import com.appleguard.pharmacy_parser.exceptions.NoSuchCityException;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
@@ -12,6 +14,9 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+
+
 @Component
 public class GorzdravParser implements Parser{
     @Autowired
@@ -19,15 +24,15 @@ public class GorzdravParser implements Parser{
     @Autowired
     Translator translator;
     @Override
-    public List<Drug> parse(String inputDrug, String city) {
+    public List<Drug> parse(String inputDrug, City city) {
         List<Drug> drugsList = new ArrayList<>();
         WebClient webClient = tools.getWebClient();
         inputDrug = translator.translate(inputDrug);
         try {
             HtmlPage page;
             switch (city) {
-                case "Москва" -> page = webClient.getPage("https://gorzdrav.org/balashiha/");
-                case "Санкт-Петербург" -> page = webClient.getPage("https://gorzdrav.org/spb/");
+                case MOSCOW -> page = webClient.getPage("https://gorzdrav.org/balashiha/");
+                case PITER -> page = webClient.getPage("https://gorzdrav.org/spb/");
                 default -> {
                     return drugsList;
                 }

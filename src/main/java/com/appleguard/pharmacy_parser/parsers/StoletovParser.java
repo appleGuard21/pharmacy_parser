@@ -4,6 +4,7 @@ import com.appleguard.pharmacy_parser.additionalTools.City;
 import com.appleguard.pharmacy_parser.additionalTools.ParsersTools;
 import com.appleguard.pharmacy_parser.additionalTools.Translator;
 import com.appleguard.pharmacy_parser.entity.Drug;
+import com.appleguard.pharmacy_parser.exceptions.NoSuchCityException;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
@@ -16,6 +17,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.appleguard.pharmacy_parser.additionalTools.City.*;
+
 @Component
 public class StoletovParser implements Parser{
     @Autowired
@@ -23,19 +26,19 @@ public class StoletovParser implements Parser{
     @Autowired
     Translator translator;
     @Override
-    public List<Drug> parse(String inputDrug, String city) {
+    public List<Drug> parse(String inputDrug, City city) {
         List<Drug> drugsList = new ArrayList<>();
         WebClient webClient = tools.getWebClient();
         inputDrug = translator.translate(inputDrug);
         try {
             HtmlPage page = webClient.getPage("https://stoletov.ru/");
             switch (city) {
-                case "Москва" -> {
-                    Cookie myCookie = new Cookie("stoletov.ru","SELECTED_CITY", City.MOSCOW_STOLETOV.getCity());
+                case MOSCOW -> {
+                    Cookie myCookie = new Cookie("stoletov.ru","SELECTED_CITY", MOSCOW_STOLETOV.getCity());
                     tools.setCityByCookie(webClient,"cityId",myCookie);
                 }
-                case "Санкт-Петербург" -> {
-                    Cookie myCookie = new Cookie("stoletov.ru","SELECTED_CITY",City.PITER_STOLETOV.getCity());
+                case PITER -> {
+                    Cookie myCookie = new Cookie("stoletov.ru","SELECTED_CITY", PITER_STOLETOV.getCity());
                     tools.setCityByCookie(webClient,"SELECTED_CITY",myCookie);
                 }
                 default -> {

@@ -4,7 +4,9 @@ public enum City {
     MOSCOW_STOLICHKI("1"),
     PITER_STOLICHKI("77"),
     PITER_STOLETOV("20238"),
-    MOSCOW_STOLETOV("20237");
+    MOSCOW_STOLETOV("20237"),
+    MOSCOW("Москва"),
+    PITER("Санкт-Петербург");
     private final String city;
 
     City(String city) {

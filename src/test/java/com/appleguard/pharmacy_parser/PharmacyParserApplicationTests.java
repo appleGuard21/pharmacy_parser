@@ -1,5 +1,6 @@
 package com.appleguard.pharmacy_parser;
 
+import com.appleguard.pharmacy_parser.additionalTools.City;
 import com.appleguard.pharmacy_parser.entity.Drug;
 import com.appleguard.pharmacy_parser.parsers.*;
 import org.junit.jupiter.api.Test;
@@ -8,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
+import static com.appleguard.pharmacy_parser.additionalTools.City.MOSCOW;
 import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
@@ -26,40 +28,35 @@ class PharmacyParserApplicationTests {
     @Test
     void serdceTest(){
         String inputDrug = "анальгин";
-        String city = "Москва";
-        List<Drug> drugList = serdceParser.parse(inputDrug,city);
+        List<Drug> drugList = serdceParser.parse(inputDrug, MOSCOW);
         assertThat(drugList).isNotNull();
         assertThat(drugList).isNotEmpty();
     }
     @Test
     void stolichkiTest(){
         String inputDrug = "анальгин";
-        String city = "Москва";
-        List<Drug> drugList = stolichkiParser.parse(inputDrug,city);
+        List<Drug> drugList = stolichkiParser.parse(inputDrug,MOSCOW);
         assertThat(drugList).isNotNull();
         assertThat(drugList).isNotEmpty();
     }
     @Test
     void apteka366Test(){
         String inputDrug = "супрастин";
-        String city = "Москва";
-        List<Drug> drugList = apteka366Parser.parse(inputDrug,city);
+        List<Drug> drugList = apteka366Parser.parse(inputDrug,MOSCOW);
         assertThat(drugList).isNotNull();
         assertThat(drugList).isNotEmpty();
     }
     @Test
     void stoletovTest(){
         String inputDrug = "анальгин";
-        String city = "Москва";
-        List<Drug> drugList = stoletovParser.parse(inputDrug,city);
+        List<Drug> drugList = stoletovParser.parse(inputDrug,MOSCOW);
         assertThat(drugList).isNotNull();
         assertThat(drugList).isNotEmpty();
     }
     @Test
     void gorzdravTest(){
         String inputDrug = "супрастин";
-        String city = "Москва";
-        List<Drug> drugList = gorzdravParser.parse(inputDrug,city);
+        List<Drug> drugList = gorzdravParser.parse(inputDrug,MOSCOW);
         assertThat(drugList).isNotNull();
         assertThat(drugList).isNotEmpty();
     }
