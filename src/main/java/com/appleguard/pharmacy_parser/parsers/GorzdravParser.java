@@ -4,7 +4,6 @@ import com.appleguard.pharmacy_parser.additionalTools.City;
 import com.appleguard.pharmacy_parser.additionalTools.ParsersTools;
 import com.appleguard.pharmacy_parser.additionalTools.Translator;
 import com.appleguard.pharmacy_parser.entity.Drug;
-import com.appleguard.pharmacy_parser.exceptions.NoSuchCityException;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
@@ -32,7 +31,7 @@ public class GorzdravParser implements Parser{
             HtmlPage page;
             switch (city) {
                 case MOSCOW -> page = webClient.getPage("https://gorzdrav.org/balashiha/");
-                case PITER -> page = webClient.getPage("https://gorzdrav.org/spb/");
+                case ST_PETERSBURG -> page = webClient.getPage("https://gorzdrav.org/spb/");
                 default -> {
                     return drugsList;
                 }

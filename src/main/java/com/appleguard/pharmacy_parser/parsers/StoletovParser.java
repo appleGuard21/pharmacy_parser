@@ -4,7 +4,6 @@ import com.appleguard.pharmacy_parser.additionalTools.City;
 import com.appleguard.pharmacy_parser.additionalTools.ParsersTools;
 import com.appleguard.pharmacy_parser.additionalTools.Translator;
 import com.appleguard.pharmacy_parser.entity.Drug;
-import com.appleguard.pharmacy_parser.exceptions.NoSuchCityException;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
@@ -17,7 +16,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.appleguard.pharmacy_parser.additionalTools.City.*;
+import static com.appleguard.pharmacy_parser.additionalTools.CookieCities.*;
+
+
 
 @Component
 public class StoletovParser implements Parser{
@@ -37,7 +38,7 @@ public class StoletovParser implements Parser{
                     Cookie myCookie = new Cookie("stoletov.ru","SELECTED_CITY", MOSCOW_STOLETOV.getCity());
                     tools.setCityByCookie(webClient,"cityId",myCookie);
                 }
-                case PITER -> {
+                case ST_PETERSBURG -> {
                     Cookie myCookie = new Cookie("stoletov.ru","SELECTED_CITY", PITER_STOLETOV.getCity());
                     tools.setCityByCookie(webClient,"SELECTED_CITY",myCookie);
                 }

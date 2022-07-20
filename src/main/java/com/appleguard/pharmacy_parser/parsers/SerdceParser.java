@@ -4,7 +4,6 @@ import com.appleguard.pharmacy_parser.additionalTools.City;
 import com.appleguard.pharmacy_parser.additionalTools.ParsersTools;
 import com.appleguard.pharmacy_parser.additionalTools.Translator;
 import com.appleguard.pharmacy_parser.entity.Drug;
-import com.appleguard.pharmacy_parser.exceptions.NoSuchCityException;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
@@ -14,8 +13,6 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.appleguard.pharmacy_parser.additionalTools.City.*;
 
 @Component
 public class SerdceParser implements Parser{
@@ -32,7 +29,7 @@ public class SerdceParser implements Parser{
         try {
             HtmlPage page;
             switch (city) {
-                case MOSCOW, PITER -> page = webClient.getPage("https://sr.farm/search/?q="+inputDrug);
+                case MOSCOW, ST_PETERSBURG -> page = webClient.getPage("https://sr.farm/search/?q="+inputDrug);
                 default -> {
                     return drugsList;
                 }
@@ -65,7 +62,6 @@ public class SerdceParser implements Parser{
                     }
                 }
             }
-//            } else return drugsList;
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

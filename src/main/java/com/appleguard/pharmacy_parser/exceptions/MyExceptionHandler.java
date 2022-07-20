@@ -18,6 +18,10 @@ public class MyExceptionHandler extends ResponseEntityExceptionHandler {
     ResponseEntity<ExceptionMessage> handleNoSuchDrugException() {
         return new ResponseEntity<>(new ExceptionMessage("There is no such drug"), HttpStatus.NOT_FOUND);
     }
+    @ExceptionHandler(NoSuchAnaloguesException.class)
+    ResponseEntity<ExceptionMessage> handleNoSuchAnaloguesExceptio() {
+        return new ResponseEntity<>(new ExceptionMessage("There is no analogues available"), HttpStatus.NOT_FOUND);
+    }
 
     @Data
     @AllArgsConstructor

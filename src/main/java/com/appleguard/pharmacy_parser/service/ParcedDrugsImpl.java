@@ -2,6 +2,7 @@ package com.appleguard.pharmacy_parser.service;
 
 import com.appleguard.pharmacy_parser.additionalTools.City;
 import com.appleguard.pharmacy_parser.entity.Drug;
+import com.appleguard.pharmacy_parser.exceptions.NoSuchDrugException;
 import com.appleguard.pharmacy_parser.parsers.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -60,13 +61,14 @@ public class ParcedDrugsImpl implements ParcedDrugs {
                 allDrugs.addAll(allList);
             }
         }
-            if(!allDrugs.isEmpty()) {
+        if(allDrugs.isEmpty()){
+            throw new NoSuchDrugException();
+        }
                 allDrugs.sort((x, y) -> (int) (x.getPrice() - y.getPrice()));
                 for(int i =0;i<allDrugs.size();i++){
                     Drug drug = allDrugs.get(i);
                     drug.setId(i);
                 }
-            }
             return allDrugs;
         }
         public synchronized void addToList(List<List<Drug>> mainList, List<Drug> drugsList){
