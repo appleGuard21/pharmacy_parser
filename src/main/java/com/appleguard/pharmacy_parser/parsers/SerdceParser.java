@@ -1,5 +1,6 @@
 package com.appleguard.pharmacy_parser.parsers;
 
+import com.appleguard.pharmacy_parser.additionalTools.City;
 import com.appleguard.pharmacy_parser.additionalTools.ParsersTools;
 import com.appleguard.pharmacy_parser.additionalTools.Translator;
 import com.appleguard.pharmacy_parser.entity.Drug;
@@ -21,13 +22,18 @@ public class SerdceParser implements Parser{
     Translator translator;
 
     @Override
-    public List<Drug> parse(String inputDrug, String city) {
+    public List<Drug> parse(String inputDrug, City city) {
             List<Drug> drugsList = new ArrayList<>();
             WebClient webClient = tools.getWebClient();
             inputDrug = translator.translate(inputDrug);
         try {
-            if(city.equals("Москва")||city.equals("Санкт-Петербург")) {
-            HtmlPage page = webClient.getPage("https://sr.farm/search/?q="+inputDrug);
+            HtmlPage page;
+            switch (city) {
+                case MOSCOW, ST_PETERSBURG -> page = webClient.getPage("https://sr.farm/search/?q="+inputDrug);
+                default -> {
+                    return drugsList;
+                }
+            }
             HtmlDivision div = (HtmlDivision) page.getFirstByXPath("/html/body/main/div/div[5]/div/div");
             if (div!=null) {
                 for (int i = 1; i <= div.getChildElementCount(); i++) {
@@ -56,7 +62,6 @@ public class SerdceParser implements Parser{
                     }
                 }
             }
-            } else return drugsList;
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

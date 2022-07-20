@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Component
 public class Apteka366Parser implements Parser {
     @Autowired
@@ -22,7 +23,7 @@ public class Apteka366Parser implements Parser {
     @Autowired
     Translator translator;
     @Override
-    public List<Drug> parse(String inputDrug, String city) {
+    public List<Drug> parse(String inputDrug, City city) {
 
         List<Drug> drugsList = new ArrayList<>();
 
@@ -31,8 +32,8 @@ public class Apteka366Parser implements Parser {
         try {
             HtmlPage page;
             switch (city){
-                case "Москва"-> page = webClient.getPage("https://366.ru/");
-                case "Санкт-Петербург"-> page = webClient.getPage("https://366.ru/spb/");
+                case MOSCOW-> page = webClient.getPage("https://366.ru/");
+                case ST_PETERSBURG -> page = webClient.getPage("https://366.ru/spb/");
                 default -> {
                     return drugsList;
                 }

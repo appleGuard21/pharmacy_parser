@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.appleguard.pharmacy_parser.additionalTools.CookieCities.*;
+
 @Component
 public class StolichkiParser implements Parser {
     @Autowired
@@ -23,19 +25,19 @@ public class StolichkiParser implements Parser {
     ParsersTools parsersTools;
 
     @Override
-    public List<Drug> parse(String inputDrug, String city){
+    public List<Drug> parse(String inputDrug, City city){
             List<Drug> drugsList = new ArrayList<>();
             WebClient webClient = parsersTools.getWebClient();
             inputDrug = translator.translate(inputDrug);
         try {
             HtmlPage page = webClient.getPage("https://stolichki.ru");
             switch (city) {
-                case "Москва" -> {
-                    Cookie myCookie = new Cookie(".stolichki.ru","cityId", City.MOSCOW_STOLICHKI.getCity());
+                case MOSCOW -> {
+                    Cookie myCookie = new Cookie(".stolichki.ru","cityId", MOSCOW_STOLICHKI.getCity());
                     parsersTools.setCityByCookie(webClient,"cityId",myCookie);
                 }
-                case "Санкт-Петербург" -> {
-                    Cookie myCookie = new Cookie(".stolichki.ru","cityId",City.PITER_STOLICHKI.getCity());
+                case ST_PETERSBURG -> {
+                    Cookie myCookie = new Cookie(".stolichki.ru","cityId", PITER_STOLICHKI.getCity());
                     parsersTools.setCityByCookie(webClient,"cityId",myCookie);
                 }
                 default -> {
